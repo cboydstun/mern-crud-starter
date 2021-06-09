@@ -1,3 +1,4 @@
+//imports
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -76,6 +77,7 @@ app.put("/put/:id", (req, res) => {
   );
 });
 
+//sanity check for server running
 app.listen(port, function () {
   console.log(`Express server is running at ${port}`);
 });

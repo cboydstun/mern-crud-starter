@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
+
+  //initial item state  
   const [item, setItem] = useState({
     title: "",
     description: "",
   });
 
+  //items - plural - state
   const [items, setItems] = useState([
     {
       title: "",
@@ -15,14 +18,17 @@ function App() {
     },
   ]);
 
+  //asking if we are using the PUT method or not
   const [isPut, setIsPut] = useState(false);
 
+  //slice of state to carry updates
   const [updatedItem, setUpdatedItem] = useState({
     title: "",
     description: "",
     id: "",
   });
 
+  //fetch all of the items in our database through our API endpoint
   useEffect(() => {
     fetch("/items")
       .then((res) => res.json())
@@ -30,6 +36,7 @@ function App() {
       .catch((err) => console.log(err));
   }, [items]);
 
+  //function to handle changes to values
   function handleChange(event) {
     const { name, value } = event.target;
     setItem((prevInput) => {
@@ -40,6 +47,7 @@ function App() {
     });
   }
 
+  //function to add items to our database through our API endpoint
   function addItem(event) {
     event.preventDefault();
 
@@ -56,10 +64,12 @@ function App() {
     });
   }
 
+  //API call to our endpoint to delete value
   function deleteItem(id) {
-    axios.delete(`/delete/${id}`);
+    axios.delete("/delete/" + id);
   }
 
+  //function to open up state to allow item to be updated
   function openUpdate(id) {
     setIsPut(true);
     setUpdatedItem((prevInput) => {
@@ -70,10 +80,12 @@ function App() {
     });
   }
 
+  //API call to our endpoint to update value
   function updateItem(id) {
     axios.put(`/put/${id}`, updatedItem);
   }
 
+  //function to handle updates to values
   function handleUpdate(event) {
     const { name, value } = event.target;
     setUpdatedItem((prevInput) => {
