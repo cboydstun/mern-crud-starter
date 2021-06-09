@@ -99,8 +99,8 @@ function App() {
   }
 
   return (
-    <div className="App">
-        <div className="input-container">
+    <div>
+        <div>
             {!isPut ? (
                 <div>
                 <input
@@ -139,11 +139,11 @@ function App() {
                 </div>
             )}
         </div>
-        <div className="items-container">
+        <div>
             {
                 items.map((item) => {
                     return (
-                    <div className="card" key={item._id}>
+                    <div key={item._id}>
                         <p>{item.title}</p>
                         <p>{item.description}</p>
                         <button onClick={() => deleteItem(item._id)}>DELETE</button>
