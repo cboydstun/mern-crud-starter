@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+import './App.css';
+
 function App() {
 
   //initial item state  
@@ -98,56 +100,59 @@ function App() {
 
   return (
     <div className="App">
-      {!isPut ? (
-        <div>
-          <input
-            onChange={handleChange}
-            name="title"
-            value={item.title}
-            placeholder="title"
-            />
+        <div className="input-container">
+            {!isPut ? (
+                <div>
+                <input
+                    onChange={handleChange}
+                    name="title"
+                    value={item.title}
+                    placeholder="title"
+                    />
 
-          <input
-            onChange={handleChange}
-            name="description"
-            value={item.description}
-            placeholder="description"
-            />
+                <input
+                    onChange={handleChange}
+                    name="description"
+                    value={item.description}
+                    placeholder="description"
+                    />
 
-          <button onClick={addItem}>ADD ITEM</button>
+                <button onClick={addItem}>ADD ITEM</button>
+                </div>
+            ) : (
+                <div>
+                <input
+                    onChange={handleUpdate}
+                    name="title"
+                    value={updatedItem.title}
+                    placeholder="title"
+                />
+                <input
+                    onChange={handleUpdate}
+                    name="description"
+                    value={updatedItem.description}
+                    placeholder="description"
+                />
+                <button onClick={() => updateItem(updatedItem.id)}>
+                    UPDATE ITEM
+                </button>
+                </div>
+            )}
         </div>
-      ) : (
-        <div>
-          <input
-            onChange={handleUpdate}
-            name="title"
-            value={updatedItem.title}
-            placeholder="title"
-          />
-          <input
-            onChange={handleUpdate}
-            name="description"
-            value={updatedItem.description}
-            placeholder="description"
-          />
-          <button onClick={() => updateItem(updatedItem.id)}>
-            UPDATE ITEM
-          </button>
+        <div className="items-container">
+            {
+                items.map((item) => {
+                    return (
+                    <div className="card" key={item._id}>
+                        <p>{item.title}</p>
+                        <p>{item.description}</p>
+                        <button onClick={() => deleteItem(item._id)}>DELETE</button>
+                        <button onClick={() => openUpdate(item._id)}>UPDATE</button>
+                    </div>
+                    );
+                })
+            }
         </div>
-      )}
-
-      {
-        items.map((item) => {
-            return (
-            <div key={item._id}>
-                <p>{item.title}</p>
-                <p>{item.description}</p>
-                <button onClick={() => deleteItem(item._id)}>DELETE</button>
-                <button onClick={() => openUpdate(item._id)}>UPDATE</button>
-            </div>
-            );
-        })
-      }
     </div>
   );
 }
